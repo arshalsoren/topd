@@ -5,7 +5,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-wiki_url="${1:-git@github.com:sorens-co/topd.wiki.git}"
+wiki_url="${1:-git@github.com:arshalsoren/topd.wiki.git}"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 

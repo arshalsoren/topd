@@ -55,7 +55,7 @@ topd is built from source on your Mac. There's no installer to download yet.
 ## Install and run
 
 ```sh
-git clone https://github.com/sorens-co/topd.git
+git clone https://github.com/arshalsoren/topd.git
 cd topd
 ./run.sh
 ```
@@ -153,8 +153,8 @@ Project layout:
 
 ## Community
 
-- **[Wiki](https://github.com/sorens-co/topd/wiki):** install guide, preferences, troubleshooting, and architecture notes.
-- **[Discussions](https://github.com/sorens-co/topd/discussions):** questions, ideas, and show-and-tell. Use Discussions for questions, and Issues for bugs.
+- **[Wiki](https://github.com/arshalsoren/topd/wiki):** install guide, preferences, troubleshooting, and architecture notes.
+- **[Discussions](https://github.com/arshalsoren/topd/discussions):** questions, ideas, and show-and-tell. Use Discussions for questions, and Issues for bugs.
 
 ## Contributing
 
