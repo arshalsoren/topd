@@ -20,6 +20,10 @@
 
 topd lives in your menu bar. Click it for a compact popover with six live cards and the processes using the most CPU and memory. Right-click for preferences. It has no Dock icon and no window, and it doesn't send anything anywhere.
 
+<p align="center">
+  <img src="docs/images/popover.png" width="352" alt="The topd popover: six live cards and the top five processes by CPU and by memory" />
+</p>
+
 ## Contents
 
 - [Features](#features)
