@@ -49,6 +49,11 @@
     .shot { margin: 56px auto 0; text-align: center; }
     .shot img { max-width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 30px 70px rgba(0,0,0,.35); }
     .shot figcaption { color: var(--muted); font-size: 13px; margin-top: 14px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .gallery figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px; text-align: center; }
+    .gallery img { display: block; width: 100%; height: auto; border-radius: 10px; }
+    .gallery figcaption { color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .gallery .wide { grid-column: 1 / -1; }
     section { padding: 64px 0; }
     section h2 { font-size: 32px; letter-spacing: -.01em; margin: 0 0 8px; }
     section .sub { color: var(--muted); margin: 0 0 32px; }
@@ -113,6 +118,47 @@
     </div>
 
   </div>
+
+  <section id="screens">
+    <div class="wrap">
+      <h2>Every card, up close</h2>
+      <p class="sub">Screenshots from a running copy of topd, one for each card and each process list.</p>
+      <div class="gallery">
+        <figure>
+          <img src="images/card-cpu.png" alt="CPU card: overall load, per-core bars, and history" loading="lazy" />
+          <figcaption>CPU</figcaption>
+        </figure>
+        <figure>
+          <img src="images/card-gpu.png" alt="GPU card: utilization history on Apple silicon" loading="lazy" />
+          <figcaption>GPU</figcaption>
+        </figure>
+        <figure>
+          <img src="images/card-memory.png" alt="Memory card: app, wired, compressed and free memory" loading="lazy" />
+          <figcaption>Memory</figcaption>
+        </figure>
+        <figure>
+          <img src="images/card-storage.png" alt="Storage card: free space and how full the volume is" loading="lazy" />
+          <figcaption>Storage</figcaption>
+        </figure>
+        <figure>
+          <img src="images/card-network.png" alt="Network card: download and upload history" loading="lazy" />
+          <figcaption>Network</figcaption>
+        </figure>
+        <figure>
+          <img src="images/card-system.png" alt="System card: uptime and load averages" loading="lazy" />
+          <figcaption>System</figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="images/list-top-cpu.png" alt="Top five processes by CPU, with CPU and memory for each" loading="lazy" />
+          <figcaption>Top five processes by CPU</figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="images/list-top-memory.png" alt="Top five processes by memory, with CPU and memory for each" loading="lazy" />
+          <figcaption>Top five processes by memory</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
   <section id="features">
     <div class="wrap">
