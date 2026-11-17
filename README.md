@@ -20,9 +20,14 @@
 
 topd lives in your menu bar. Click it for a compact popover with six live cards and the processes using the most CPU and memory. Right-click for preferences. It has no Dock icon and no window, and it doesn't send anything anywhere.
 
+<p align="center">
+  <img src="docs/images/popover.png" width="352" alt="The topd popover: six live cards and the top five processes by CPU and by memory" />
+</p>
+
 ## Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Requirements](#requirements)
 - [Install and run](#install-and-run)
 - [Using topd](#using-topd)
@@ -44,6 +49,33 @@ topd lives in your menu bar. Click it for a compact popover with six live cards 
 - **Twelve themes**, including a translucent default and a System theme that follows macOS light and dark.
 - **Launch at login**, from Preferences.
 - **Light on the machine.** About 0.1 percent CPU with the popover closed. The menu bar updates every two seconds, and the popover refreshes every second only while it is open.
+
+## Screenshots
+
+<table>
+<tr>
+<td align="center"><img src="docs/images/card-cpu.png" width="300" alt="CPU card: overall load, per-core bars, and history"/><br/><sub>CPU</sub></td>
+<td align="center"><img src="docs/images/card-gpu.png" width="300" alt="GPU card: utilization history on Apple silicon"/><br/><sub>GPU</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/images/card-memory.png" width="300" alt="Memory card: app, wired, compressed and free memory"/><br/><sub>Memory</sub></td>
+<td align="center"><img src="docs/images/card-storage.png" width="300" alt="Storage card: free space and how full the volume is"/><br/><sub>Storage</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/images/card-network.png" width="300" alt="Network card: download and upload history"/><br/><sub>Network</sub></td>
+<td align="center"><img src="docs/images/card-system.png" width="300" alt="System card: uptime and load averages"/><br/><sub>System</sub></td>
+</tr>
+</table>
+
+<p align="center">
+  <img src="docs/images/list-top-cpu.png" width="600" alt="Top five processes by CPU, with CPU and memory for each" /><br/>
+  <sub>Top five processes by CPU</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/list-top-memory.png" width="600" alt="Top five processes by memory, with CPU and memory for each" /><br/>
+  <sub>Top five processes by memory</sub>
+</p>
 
 ## Requirements
 
