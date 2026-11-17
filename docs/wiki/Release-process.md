@@ -6,5 +6,4 @@
 4. Tag the merge commit `vX.Y.Z` and publish a GitHub Release with the changelog entries.
 5. Verify locally: `swift run topd-checks`, then `swift build -c release --product topd`, then `./run.sh`.
 
-Versions follow Semantic Versioning. CI is not yet running, so the local checks above are the
-gate for now.
+Versions follow Semantic Versioning. The local checks above are the gate for every release.
