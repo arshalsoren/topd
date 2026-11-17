@@ -1,7 +1,9 @@
-# Sponsor button for this repository. Each entry is a GitHub or platform account name.
-# Uncomment and fill in the accounts you want to use. Nothing is shown until one is set.
+# Sponsor button for this repository. Each entry is an account name on the platform.
+# Entries that are not commented out are shown on the repository.
+patreon: arshalsoren
+buy_me_a_coffee: arshalsoren
 #
-# github: [arshalsoren]         # GitHub Sponsors. Enroll the account first at github.com/sponsors.
+# github: [arshalsoren]       # GitHub Sponsors. Not enabled yet.
 # ko_fi: <username>
 # open_collective: <name>
 # custom: ["https://example.com/donate"]
