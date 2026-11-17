@@ -160,7 +160,7 @@ Project layout:
 
 Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 
-Changes reach `master` through pull requests only. Every pull request is reviewed and approved by the maintainer, and the CI checks must pass before it can be merged. Please open an issue to talk through a larger change before you start it.
+Changes reach `master` through pull requests only. Every pull request is reviewed and approved by the maintainer. Run the checks in the Development section before you open one. Please open an issue to talk through a larger change before you start it.
 
 Report security problems privately, as described in [SECURITY.md](SECURITY.md).
 
