@@ -8,7 +8,7 @@
 ## Steps
 
 ```sh
-git clone https://github.com/sorens-co/topd.git
+git clone https://github.com/arshalsoren/topd.git
 cd topd
 ./run.sh
 ```

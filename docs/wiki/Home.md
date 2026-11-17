@@ -9,4 +9,4 @@ metric cards and the processes using the most CPU and memory.
 - [Architecture](Architecture)
 - [Release process](Release-process)
 
-New here? Start with the [README](https://github.com/sorens-co/topd#readme), then come back for the details.
+New here? Start with the [README](https://github.com/arshalsoren/topd#readme), then come back for the details.
