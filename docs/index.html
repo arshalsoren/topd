@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>topd: htop for macOS, without opening a window</title>
+  <meta name="description" content="topd is a menu bar process and system monitor for macOS. Live CPU, memory, GPU, storage, system, and network cards, plus the top processes. Open source, MIT licensed, no network access." />
+  <meta property="og:title" content="topd: htop for macOS, without opening a window" />
+  <meta property="og:description" content="A menu bar process and system monitor for macOS. Open source and private." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0d10" />
+  <link rel="icon" href="images/icon.png" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #14171c;
+      --line: #262b33;
+      --text: #e8ebf0;
+      --muted: #9aa3ae;
+      --accent: #7aa2f7;
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg: #f7f8fa; --panel: #ffffff; --line: #dfe3ea; --text: #1b1f27; --muted: #5b6573; --accent: #0969da; }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    header.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); }
+    .brand img { width: 26px; height: 26px; border-radius: 6px; }
+    .nav nav a { color: var(--muted); margin-left: 20px; font-size: 15px; }
+    .nav nav a:hover { color: var(--text); text-decoration: none; }
+    .hero { text-align: center; padding: 96px 0 56px; }
+    .hero img { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+    .hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.05; letter-spacing: -.02em; margin: 24px 0 12px; }
+    .hero p.lead { font-size: 20px; color: var(--muted); max-width: 640px; margin: 0 auto 32px; }
+    .buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 12px 22px; border-radius: 10px; font-weight: 600; border: 1px solid var(--line); color: var(--text); background: var(--panel); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn:hover { text-decoration: none; filter: brightness(1.08); }
+    .mock { margin: 56px auto 0; max-width: 620px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; text-align: left; }
+    .mock .bar { display: flex; align-items: center; gap: 10px; font-weight: 600; margin-bottom: 14px; }
+    .mock .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .mock .card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--bg); }
+    .mock .card small { color: var(--muted); display: block; font-size: 12px; }
+    .mock .card strong { font-size: 22px; }
+    .mock .spark { height: 36px; margin-top: 8px; }
+    .mock .caption { color: var(--muted); font-size: 13px; text-align: center; margin-top: 12px; }
+    section { padding: 64px 0; }
+    section h2 { font-size: 32px; letter-spacing: -.01em; margin: 0 0 8px; }
+    section .sub { color: var(--muted); margin: 0 0 32px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .feature { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .feature h3 { margin: 0 0 6px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+    .install { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    pre { margin: 0; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .steps { counter-reset: s; list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 10px; }
+    .steps li { counter-increment: s; padding-left: 40px; position: relative; color: var(--muted); }
+    .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+    .themes { display: flex; flex-wrap: wrap; gap: 10px; }
+    .theme { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 14px; }
+    .dots span { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(127,127,127,.35); margin-left: -3px; }
+    .dots span:first-child { margin-left: 0; }
+    .privacy { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    details { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 600; }
+    details p { color: var(--muted); margin: 10px 0 0; }
+    footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .copy { float: right; margin: -4px 0 8px; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--muted); cursor: pointer; }
+    @media (max-width: 640px) { .nav nav a:not(:last-child) { display: none; } .mock .grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="images/icon.png" alt="" />topd</a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#themes">Themes</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/arshalsoren/topd">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <div class="hero">
+      <img src="images/icon.png" alt="topd icon: an arrow rising from a bar" />
+      <h1>htop for macOS,<br/>without opening a window.</h1>
+      <p class="lead">topd lives in your menu bar. Live CPU, memory, GPU, storage, system, and network, plus the processes using the most CPU and memory. One click away, and nothing leaves your Mac.</p>
+      <div class="buttons">
+        <a class="btn primary" href="#install">Install topd</a>
+        <a class="btn" href="https://github.com/arshalsoren/topd">View on GitHub</a>
+      </div>
+
+      <div class="mock" aria-label="Illustration of the topd popover">
+        <div class="bar">topd</div>
+        <div class="grid">
+          <div class="card"><small>CPU</small><strong>17.5%</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><polyline fill="none" stroke="#6ea8fe" stroke-width="2" points="0,26 14,22 28,24 42,14 56,18 70,10 84,16 98,8 112,12 120,9"/></svg></div>
+          <div class="card"><small>Memory</small><strong>6.2 GB</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><rect x="0" y="12" width="46" height="14" rx="3" fill="#4fbf8a"/><rect x="48" y="12" width="40" height="14" fill="#3a9a70"/><rect x="90" y="12" width="30" height="14" rx="3" fill="#2a3b34"/></svg></div>
+          <div class="card"><small>GPU</small><strong>45.0%</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><polyline fill="none" stroke="#e35f8f" stroke-width="2" points="0,30 14,24 28,28 42,16 56,22 70,12 84,20 98,10 112,16 120,8"/></svg></div>
+          <div class="card"><small>Storage</small><strong>242 GB</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><rect x="0" y="14" width="120" height="8" rx="4" fill="#2b2f36"/><rect x="0" y="14" width="62" height="8" rx="4" fill="#e0a526"/></svg></div>
+          <div class="card"><small>System</small><strong>2d 9h</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><rect x="8" y="12" width="20" height="22" fill="#8b7fe0"/><rect x="50" y="16" width="20" height="18" fill="#8b7fe0"/><rect x="92" y="20" width="20" height="14" fill="#8b7fe0"/></svg></div>
+          <div class="card"><small>Network</small><strong>↓ 6 KB/s</strong>
+            <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none"><polyline fill="none" stroke="#f0884d" stroke-width="2" points="0,30 20,28 40,30 60,8 80,26 100,28 120,27"/></svg></div>
+        </div>
+        <div class="caption">Illustration. Your numbers are your own.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Everything your Mac is doing, one click away</h2>
+      <p class="sub">Six cards, two process lists, and a menu bar that can show the numbers you care about.</p>
+      <div class="features">
+        <div class="feature"><h3>Six live cards</h3><p>CPU with per-core bars, memory broken into app, wired, compressed and free, GPU on Apple Silicon, storage, uptime and load, and network history.</p></div>
+        <div class="feature"><h3>Top processes</h3><p>The five processes using the most CPU, and the five using the most memory. Search by name or PID, and sort.</p></div>
+        <div class="feature"><h3>At a glance</h3><p>Show the values of one to three cards in the menu bar, in place of the icon. The item sizes itself to what you show.</p></div>
+        <div class="feature"><h3>Reorder and choose</h3><p>Drag cards into the order you like. Turn each card and process list on or off. The popover sizes itself to what is on.</p></div>
+        <div class="feature"><h3>Twelve themes</h3><p>Default glass, System (follows macOS light and dark, with your choice of themes), Dracula, Nord, One Dark, GitHub Light, Ayu Light, Gruvbox Light, and four fun ones.</p></div>
+        <div class="feature"><h3>Light on the Mac</h3><p>About 0.1 percent CPU when the popover is closed. It samples once a second only while open. No Dock icon, no window.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install in a minute</h2>
+      <p class="sub">topd builds on your Mac from source. You need macOS 14 or later and the Xcode Command Line Tools.</p>
+      <div class="install">
+        <button class="copy" data-copy="install-cmds">Copy</button>
+        <pre id="install-cmds"><code>xcode-select --install            # once, if you do not have the tools
+git clone https://github.com/arshalsoren/topd.git
+cd topd
+./run.sh</code></pre>
+        <ol class="steps">
+          <li>The first build takes a few minutes. Then the topd icon appears in your menu bar.</li>
+          <li>Right-click the icon for Preferences, where you pick the icon, the theme, and the cards.</li>
+          <li>Optional: turn on Launch at login in Preferences, General.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes">
+    <div class="wrap">
+      <h2>Your menu bar, your colors</h2>
+      <p class="sub">Each theme changes the app's chrome. Charts keep one fixed, contrast-checked palette, so the numbers read the same everywhere.</p>
+      <div class="themes">
+        <span class="theme"><span class="dots"><span style="background:#2b2b2f"></span><span style="background:#0a84ff"></span><span style="background:#fff"></span></span>Default</span>
+        <span class="theme"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>System</span>
+        <span class="theme"><span class="dots"><span style="background:#282a36"></span><span style="background:#bd93f9"></span><span style="background:#f8f8f2"></span></span>Dracula</span>
+        <span class="theme"><span class="dots"><span style="background:#2e3440"></span><span style="background:#88c0d0"></span><span style="background:#eceff4"></span></span>Nord</span>
+        <span class="theme"><span class="dots"><span style="background:#282c34"></span><span style="background:#61afef"></span><span style="background:#abb2bf"></span></span>One Dark</span>
+        <span class="theme"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>GitHub Light</span>
+        <span class="theme"><span class="dots"><span style="background:#fafafa"></span><span style="background:#1f73b8"></span><span style="background:#5c6166"></span></span>Ayu Light</span>
+        <span class="theme"><span class="dots"><span style="background:#fbf1c7"></span><span style="background:#076678"></span><span style="background:#3c3836"></span></span>Gruvbox Light</span>
+        <span class="theme"><span class="dots"><span style="background:#262335"></span><span style="background:#ff7edb"></span><span style="background:#f0e6ff"></span></span>Synthwave</span>
+        <span class="theme"><span class="dots"><span style="background:#1e1414"></span><span style="background:#ff5a4e"></span><span style="background:#f5e6e3"></span></span>Ember</span>
+        <span class="theme"><span class="dots"><span style="background:#1c1e22"></span><span style="background:#9aa7b5"></span><span style="background:#e4e7eb"></span></span>Slate</span>
+        <span class="theme"><span class="dots"><span style="background:#0c1b2a"></span><span style="background:#3fa9f5"></span><span style="background:#d6eaff"></span></span>Ocean</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <h2>Private by design</h2>
+      <p class="sub">topd is meant to be a tool you can trust with a view of your machine.</p>
+      <div class="privacy">
+        <div class="feature"><h3>No network access</h3><p>The app makes no network connections. Nothing is uploaded, and nothing is downloaded.</p></div>
+        <div class="feature"><h3>No telemetry</h3><p>No analytics, no crash reporting, no accounts. Preferences stay in your user defaults on your Mac.</p></div>
+        <div class="feature"><h3>Read-only</h3><p>topd reads statistics that macOS already shows your user. It stops, changes, and signals nothing.</p></div>
+        <div class="feature"><h3>Open source</h3><p>MIT licensed. Read the code, build it yourself, and send changes through a pull request.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <p class="sub">Short answers. More detail is in the <a href="https://github.com/arshalsoren/topd/wiki">wiki</a>.</p>
+      <details><summary>Why build from source instead of downloading an app?</summary><p>An app built on your Mac runs without the download and signing steps that unsigned downloads need. It also means you can read what you run. A packaged download and Homebrew install are not offered yet.</p></details>
+      <details><summary>Which Macs does it support?</summary><p>macOS 14 (Sonoma) or later. If the GPU value is not available on a Mac, the GPU card says so and the other cards still work.</p></details>
+      <details><summary>Does it need an internet connection?</summary><p>No. topd never connects to the network.</p></details>
+      <details><summary>How do I turn it off or remove it?</summary><p>Quit it from the power button in the popover, or run <code>pkill -x topd</code>. Turn off Launch at login first if you turned it on. Then delete the cloned folder.</p></details>
+      <details><summary>How do I get updates?</summary><p>Pull the repository and run <code>./run.sh</code> again. Watch the repository on GitHub to hear about new releases.</p></details>
+      <details><summary>Can I contribute?</summary><p>Yes. Read <a href="https://github.com/arshalsoren/topd/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>. Changes come in through pull requests, and questions go to the Discussions tab.</p></details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>topd is MIT licensed. Made on a Mac.</span>
+    <span>
+      <a href="https://github.com/arshalsoren/topd">GitHub</a> ·
+      <a href="https://github.com/arshalsoren/topd/wiki">Wiki</a> ·
+      <a href="https://github.com/arshalsoren/topd/discussions">Discussions</a> ·
+      <a href="https://github.com/arshalsoren/topd/blob/master/LICENSE">License</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const text = document.getElementById(button.dataset.copy).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = 'Copied';
+        setTimeout(() => { button.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>
