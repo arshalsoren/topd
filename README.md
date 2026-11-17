@@ -29,6 +29,7 @@ topd lives in your menu bar. Click it for a compact popover with six live cards 
 - [Themes](#themes)
 - [Privacy](#privacy)
 - [Troubleshooting](#troubleshooting)
+- [Community](#community)
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
@@ -149,6 +150,11 @@ Project layout:
 | `docs/` | Product brief. |
 
 `topd-checks` is an executable, not an XCTest target, because the Command Line Tools install doesn't include XCTest or the Swift Testing macros.
+
+## Community
+
+- **[Wiki](https://github.com/sorens-co/topd/wiki):** install guide, preferences, troubleshooting, and architecture notes.
+- **[Discussions](https://github.com/sorens-co/topd/discussions):** questions, ideas, and show-and-tell. Use Discussions for questions, and Issues for bugs.
 
 ## Contributing
 
