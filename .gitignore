@@ -1,0 +1,45 @@
+# Build output and SwiftPM state (the app is built locally by run.sh)
+.build/
+.swiftpm/
+*.xcodeproj
+xcuserdata/
+DerivedData/
+
+# Local app bundles and packaging output (rebuilt by run.sh)
+*.app
+*.dmg
+*.zip
+*.pkg
+
+# Secrets and credentials: never commit keys, tokens, or certificates
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.mobileprovision
+*.keychain
+api_key
+*api_key*
+secrets/
+
+# Personal or internal records (decisions and planning stay local)
+docs/decisions.md
+*.local.md
+
+# Scratch and logs
+*.log
+tmp/
+*.tmp
+
+# OS and editor files
+.DS_Store
+._*
+.AppleDouble
+.Spotlight-V100
+.Trashes
+*.swp
+*~
+.idea/
+.vscode/
+.claude/
