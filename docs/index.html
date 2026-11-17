@@ -67,7 +67,10 @@
     .steps li { counter-increment: s; padding-left: 40px; position: relative; color: var(--muted); }
     .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; }
     .themes { display: flex; flex-wrap: wrap; gap: 10px; }
-    .theme { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 14px; }
+    .theme { font: inherit; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 14px; }
+    .theme:hover { filter: brightness(1.1); }
+    .theme[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+    body, .feature, .mock, .install, .theme, details, header.nav { transition: background-color .4s ease, color .4s ease, border-color .4s ease; }
     .dots span { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(127,127,127,.35); margin-left: -3px; }
     .dots span:first-child { margin-left: 0; }
     .privacy { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
@@ -169,18 +172,18 @@ cd topd
       <h2>Your menu bar, your colors</h2>
       <p class="sub">Each theme changes the app's chrome. Charts keep one fixed, contrast-checked palette, so the numbers read the same everywhere.</p>
       <div class="themes">
-        <span class="theme"><span class="dots"><span style="background:#2b2b2f"></span><span style="background:#0a84ff"></span><span style="background:#fff"></span></span>Default</span>
-        <span class="theme"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>System</span>
-        <span class="theme"><span class="dots"><span style="background:#282a36"></span><span style="background:#bd93f9"></span><span style="background:#f8f8f2"></span></span>Dracula</span>
-        <span class="theme"><span class="dots"><span style="background:#2e3440"></span><span style="background:#88c0d0"></span><span style="background:#eceff4"></span></span>Nord</span>
-        <span class="theme"><span class="dots"><span style="background:#282c34"></span><span style="background:#61afef"></span><span style="background:#abb2bf"></span></span>One Dark</span>
-        <span class="theme"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>GitHub Light</span>
-        <span class="theme"><span class="dots"><span style="background:#fafafa"></span><span style="background:#1f73b8"></span><span style="background:#5c6166"></span></span>Ayu Light</span>
-        <span class="theme"><span class="dots"><span style="background:#fbf1c7"></span><span style="background:#076678"></span><span style="background:#3c3836"></span></span>Gruvbox Light</span>
-        <span class="theme"><span class="dots"><span style="background:#262335"></span><span style="background:#ff7edb"></span><span style="background:#f0e6ff"></span></span>Synthwave</span>
-        <span class="theme"><span class="dots"><span style="background:#1e1414"></span><span style="background:#ff5a4e"></span><span style="background:#f5e6e3"></span></span>Ember</span>
-        <span class="theme"><span class="dots"><span style="background:#1c1e22"></span><span style="background:#9aa7b5"></span><span style="background:#e4e7eb"></span></span>Slate</span>
-        <span class="theme"><span class="dots"><span style="background:#0c1b2a"></span><span style="background:#3fa9f5"></span><span style="background:#d6eaff"></span></span>Ocean</span>
+        <button class="theme" type="button" data-theme="reset" aria-pressed="false"><span class="dots"><span style="background:#2b2b2f"></span><span style="background:#0a84ff"></span><span style="background:#fff"></span></span>Default</button>
+        <button class="theme" type="button" data-theme="reset" aria-pressed="false"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>System</button>
+        <button class="theme" type="button" data-theme="dracula" aria-pressed="false"><span class="dots"><span style="background:#282a36"></span><span style="background:#bd93f9"></span><span style="background:#f8f8f2"></span></span>Dracula</button>
+        <button class="theme" type="button" data-theme="nord" aria-pressed="false"><span class="dots"><span style="background:#2e3440"></span><span style="background:#88c0d0"></span><span style="background:#eceff4"></span></span>Nord</button>
+        <button class="theme" type="button" data-theme="oneDark" aria-pressed="false"><span class="dots"><span style="background:#282c34"></span><span style="background:#61afef"></span><span style="background:#abb2bf"></span></span>One Dark</button>
+        <button class="theme" type="button" data-theme="gitHubLight" aria-pressed="false"><span class="dots"><span style="background:#ffffff"></span><span style="background:#0969da"></span><span style="background:#24292f"></span></span>GitHub Light</button>
+        <button class="theme" type="button" data-theme="ayuLight" aria-pressed="false"><span class="dots"><span style="background:#fafafa"></span><span style="background:#1f73b8"></span><span style="background:#5c6166"></span></span>Ayu Light</button>
+        <button class="theme" type="button" data-theme="gruvboxLight" aria-pressed="false"><span class="dots"><span style="background:#fbf1c7"></span><span style="background:#076678"></span><span style="background:#3c3836"></span></span>Gruvbox Light</button>
+        <button class="theme" type="button" data-theme="synthwave" aria-pressed="false"><span class="dots"><span style="background:#262335"></span><span style="background:#ff7edb"></span><span style="background:#f0e6ff"></span></span>Synthwave</button>
+        <button class="theme" type="button" data-theme="ember" aria-pressed="false"><span class="dots"><span style="background:#1e1414"></span><span style="background:#ff5a4e"></span><span style="background:#f5e6e3"></span></span>Ember</button>
+        <button class="theme" type="button" data-theme="slate" aria-pressed="false"><span class="dots"><span style="background:#1c1e22"></span><span style="background:#9aa7b5"></span><span style="background:#e4e7eb"></span></span>Slate</button>
+        <button class="theme" type="button" data-theme="ocean" aria-pressed="false"><span class="dots"><span style="background:#0c1b2a"></span><span style="background:#3fa9f5"></span><span style="background:#d6eaff"></span></span>Ocean</button>
       </div>
     </div>
   </section>
@@ -226,6 +229,106 @@ cd topd
 </footer>
 
 <script>
+const PALETTES = {
+  "dracula": {
+    "bg": "#282a36",
+    "panel": "#343746",
+    "line": "#44475a",
+    "text": "#f8f8f2",
+    "muted": "#cacbc9",
+    "accent": "#bd93f9"
+  },
+  "nord": {
+    "bg": "#2e3440",
+    "panel": "#3b4252",
+    "line": "#4c566a",
+    "text": "#eceff4",
+    "muted": "#c2c6cc",
+    "accent": "#88c0d0"
+  },
+  "oneDark": {
+    "bg": "#282c34",
+    "panel": "#353b45",
+    "line": "#3e4451",
+    "text": "#abb2bf",
+    "muted": "#9ea5b1",
+    "accent": "#61afef"
+  },
+  "gitHubLight": {
+    "bg": "#ffffff",
+    "panel": "#f6f8fa",
+    "line": "#d0d7de",
+    "text": "#24292f",
+    "muted": "#54585d",
+    "accent": "#0969da"
+  },
+  "ayuLight": {
+    "bg": "#fafafa",
+    "panel": "#f0f1f3",
+    "line": "#d9d8d7",
+    "text": "#5c6166",
+    "muted": "#696d72",
+    "accent": "#1f73b8"
+  },
+  "gruvboxLight": {
+    "bg": "#fbf1c7",
+    "panel": "#f4e8c1",
+    "line": "#d5c4a1",
+    "text": "#3c3836",
+    "muted": "#666156",
+    "accent": "#076678"
+  },
+  "synthwave": {
+    "bg": "#262335",
+    "panel": "#332b4a",
+    "line": "#4a3f6b",
+    "text": "#f0e6ff",
+    "muted": "#c4bbd3",
+    "accent": "#ff7edb"
+  },
+  "ember": {
+    "bg": "#1e1414",
+    "panel": "#2b1c1c",
+    "line": "#4a2c2c",
+    "text": "#f5e6e3",
+    "muted": "#c6b8b5",
+    "accent": "#ff5a4e"
+  },
+  "slate": {
+    "bg": "#1c1e22",
+    "panel": "#26292f",
+    "line": "#3b4048",
+    "text": "#e4e7eb",
+    "muted": "#b8bbbf",
+    "accent": "#9aa7b5"
+  },
+  "ocean": {
+    "bg": "#0c1b2a",
+    "panel": "#12283d",
+    "line": "#1e4062",
+    "text": "#d6eaff",
+    "muted": "#aabcd0",
+    "accent": "#3fa9f5"
+  }
+};
+
+const root = document.documentElement;
+const VARS = { bg: '--bg', panel: '--panel', line: '--line', text: '--text', muted: '--muted', accent: '--accent' };
+function applyTheme(key) {
+  if (key === 'reset') {
+    Object.values(VARS).forEach((v) => root.style.removeProperty(v));
+  } else {
+    const p = PALETTES[key];
+    Object.entries(VARS).forEach(([k, v]) => root.style.setProperty(v, p[k]));
+  }
+  document.querySelectorAll('.theme').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.theme === key));
+  });
+}
+document.querySelectorAll('.theme').forEach((button) => {
+  button.addEventListener('click', () => applyTheme(button.dataset.theme));
+});
+
   document.querySelectorAll('[data-copy]').forEach((button) => {
     button.addEventListener('click', () => {
       const text = document.getElementById(button.dataset.copy).innerText;
